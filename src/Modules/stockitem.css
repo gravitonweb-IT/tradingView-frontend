@@ -1,0 +1,16 @@
+.stock-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    color: white;
+    transition: all 0.3s ease;
+  }
+  
+  .positive {
+    background-color: #4caf50; /* Green */
+  }
+  
+  .negative {
+    background-color: #f44336; /* Red */
+  }
+  

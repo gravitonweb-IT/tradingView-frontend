@@ -175,8 +175,8 @@ const SupportTicket = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // onSubmit({ subject, message });
-    setSubject("");
-    setMessage("");
+    setSubject('');
+    setMessage('');
   };
 
   return (
