@@ -38,6 +38,7 @@ const MainStock = () => {
             alert('Error deleting stock data');
         }
     };
+    
       useEffect(() => {
         const interval = setInterval(() => {
           // Update stocks with simulated data for demonstration purposes
