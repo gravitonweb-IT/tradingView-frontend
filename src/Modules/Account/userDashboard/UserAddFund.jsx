@@ -112,12 +112,12 @@ const UserAddFund = () => {
       <>
         <UserDashboard>
           <div className=" flex justify-center mt-10 ">
-            <button
+            {/* <button
               onClick={openWithdrawForm}
               className="border-2 border-[#034694] rounded-[4px] px-5 py-2 text-xl cursor-pointer"
             >
               Withdraw
-            </button>
+            </button> */}
 
             {/* <button
                 onClick={openFundsPopup}
@@ -126,12 +126,7 @@ const UserAddFund = () => {
               </button> */}
           </div>
 
-          {showWithdrawForm && (
-            <WithdrawForm
-              isOpen={true}
-              onClose={() => setShowWithdrawForm(false)}
-            />
-          )}
+     
 
           {showFundsPopup && (
             <FundsPopup

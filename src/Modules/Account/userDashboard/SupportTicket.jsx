@@ -175,8 +175,8 @@ const SupportTicket = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // onSubmit({ subject, message });
-    setSubject("");
-    setMessage("");
+    setSubject('');
+    setMessage('');
   };
 
   return (
@@ -235,7 +235,7 @@ const SupportTicket = () => {
                 }`}
                 onClick={() => handleMenuItemClick("Now")}
               >
-                <Link to="/trade-now" className="flex items-center">
+                <Link to="/tradeNow" className="flex items-center">
                   <GiTrade className="mr-2" />
                   Trade Now
                 </Link>

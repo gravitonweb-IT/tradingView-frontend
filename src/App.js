@@ -41,6 +41,8 @@ import UserTransaction from "./Modules/Account/userDashboard/UserTransaction";
 import UserWithdraw from "./Modules/Account/userDashboard/UserWithdraw";
 import DashboardUser from "./Modules/Account/userDashboard/DashboardUser";
 import WithdrawForm from "./Modules/Account/WithdrawForm";
+import TradeNow from "./Modules/TradeNow";
+import MainStock from "./Modules/MainStock";
 
 console.log("check", window.location.pathname.includes("adminpanel"));
 function App() {
@@ -101,15 +103,32 @@ function App() {
 
           {/* userdashboard */}
 
-          <Route path="/change-password" element={<ChangePassword />} />
-          <Route path="/payout-history" element={<PayoutHistory />} />
-          <Route path="/support-ticket" element={<SupportTicket />} />
-          <Route path="/user-fund" element={<UserAddFund />} />
-          <Route path="/edit-profile" element={<UserEditProfit />} />
-          <Route path="/user-logout" element={<UserLogout />} />
-          <Route path="/trade-now" element={<UserTradeNow />} />
-          <Route path="/usertransaction" element={<UserTransaction />} />
+          
+         
+        
+       
+          
+         
+         
+          
           <Route path="/user-withdraw" element={<WithdrawForm />} />
+          <Route path='/change-password' element={<ChangePassword/>}/>
+          <Route path='/payout-history' element={<PayoutHistory/>}/>
+          <Route path='/support-ticket' element={<SupportTicket/>}/>
+          <Route path='/user-fund' element={<UserAddFund/>}/>
+          <Route path='/edit-profile' element={<UserEditProfit/>}/>
+          <Route path='/user-logout' element={<UserLogout/>}/>
+          <Route path='/trade-now' element={<UserTradeNow/>}/>
+          <Route path='/usertransaction' element={<UserTransaction/>}/>
+          <Route path='/user-withdraw' element={<UserWithdraw/>}/>
+          <Route path='/tradeNow' element={<MainStock/>}/>
+
+
+
+
+
+
+
         </Routes>
         <FooterOne />
         <Scrollup />

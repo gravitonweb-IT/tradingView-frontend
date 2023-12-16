@@ -34,7 +34,21 @@ const PayoutHistory = () => {
   const targetDiv = document.getElementById("grapch");
 
   const [selectedMenuItem, setSelectedMenuItem] = useState("Dashboard");
-
+  const [trsansaction,setTrsaction]=useState(null)
+  useEffect(()=>{
+   var requestOptions = {
+     method: 'GET',
+     redirect: 'follow'
+   };
+   
+   fetch("http://127.0.0.1:8000/rolebased/transaction/johndoe@example.com/", requestOptions)
+     .then(response => response.json())
+     .then(result =>{
+      const data=result.filter(transaction => transaction.type === "Payout")
+       setTrsaction(data)
+     })
+     .catch(error => console.log('error', error));
+  },[])
   const menuItems = [
     { name: "Dashboard", icon: AiOutlineDashboard },
     { name: "Transaction", icon: BsFillClipboard2DataFill },
@@ -182,20 +196,20 @@ const PayoutHistory = () => {
                   <tr className="bg-gray-200">
                     <th className="border p-2">Username</th>
                     <th className="border p-2">Amount</th>
-                    <th className="border p-2">Date</th>
-                    <th className="border p-2">Status</th>
+                    {/* <th className="border p-2">Date</th>
+                    <th className="border p-2">Status</th> */}
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((row, index) => (
+                  {trsansaction?.map((row, index) => (
                     <tr
                       key={index}
                       className={index % 2 === 0 ? "bg-gray-100" : ""}
                     >
-                      <td className="border p-2">{row.username}</td>
+                      <td className="border p-2">{row.name}</td>
                       <td className="border p-2">{row.amount}</td>
-                      <td className="border p-2">{row.date}</td>
-                      <td className="border p-2">{row.status}</td>
+                      {/* <td className="border p-2">{row.date}</td>
+                      <td className="border p-2">{row.status}</td> */}
                     </tr>
                   ))}
                 </tbody>

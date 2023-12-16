@@ -36,6 +36,20 @@ const UserTransaction = () => {
   const targetDiv = document.getElementById("grapch");
 
   const [selectedMenuItem, setSelectedMenuItem] = useState("Dashboard");
+  const [trsansaction,setTrsaction]=useState(null)
+ useEffect(()=>{
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  
+  fetch("http://127.0.0.1:8000/rolebased/transaction/johndoe@example.com/", requestOptions)
+    .then(response => response.json())
+    .then(result =>{
+      setTrsaction(result)
+    })
+    .catch(error => console.log('error', error));
+ },[])
 
   const menuItems = [
     { name: "Dashboard", icon: AiOutlineDashboard },
@@ -203,42 +217,18 @@ const UserTransaction = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>John Doe</td>
-                        <td>johndoe@example.com</td>
-                        <td>Debit</td>
-                        <td>$100</td>
-                      </tr>
-                      <tr>
-                        <td>Jane Smith</td>
-                        <td>janesmith@example.com</td>
-                        <td>Debit</td>
-                        <td>$75</td>
-                      </tr>
-                      <tr>
-                        <td>Alex Johnson</td>
-                        <td>alexjohnson@example.com</td>
-                        <td>Debit</td>
-                        <td>$120</td>
-                      </tr>
-                      <tr>
-                        <td>Emily Brown</td>
-                        <td>emilybrown@example.com</td>
-                        <td>Debit</td>
-                        <td>$50</td>
-                      </tr>
-                      <tr>
-                        <td>Mike Davis</td>
-                        <td>mikedavis@example.com</td>
-                        <td>Debit</td>
-                        <td>$90</td>
-                      </tr>
-                      <tr>
-                        <td>Sarah Lee</td>
-                        <td>sarahlee@example.com</td>
-                        <td>Debit</td>
-                        <td>$110</td>
-                      </tr>
+                      {
+ trsansaction?.map(data=> <tr>
+  <td>{data.name}</td>
+  <td>{data.email}</td>
+  <td>{data.type}</td>
+  <td>{data.amount}</td>
+</tr>
+  )
+
+                      }
+                      
+                      
                     </tbody>
                   </table>
                 </div>

@@ -5,6 +5,8 @@ import PendingRequest from "./PendingRequest";
 import Withdraw from "./Withdraw";
 import AccountDetails from "./AccountDetails";
 import Fund from "../Account/Fund";
+import DepositForm from "./DepositForm";
+import TradeImport from "./TradeImport";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -50,9 +52,9 @@ export default function AdminDashboard() {
       {/* Main Content */}
       <div className="flex-grow p-10">
         {selectedOption === 'ManageCustomer' && <PendingRequest />}
-        {selectedOption === 'Trade' && <>Trade</>}
+        {selectedOption === 'Trade' && <TradeImport/>}
         {selectedOption === 'WithdrawRequests' && <Withdraw />}
-        {selectedOption === 'Deposit' && <>Deposit</>}
+        {selectedOption === 'Deposit' && <DepositForm/>}
         {selectedOption === 'ManageBlog' && <>ManageBlog</>}
         {selectedOption === 'AccountDetails' && <AccountDetails />}
         {selectedOption === 'Fund' && <Fund />}

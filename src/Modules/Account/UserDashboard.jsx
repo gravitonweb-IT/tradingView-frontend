@@ -236,7 +236,7 @@ const UserDashboard = ({ children }) => {
                   }`}
                   onClick={() => setSelectedMenuItem("Now")}
                 >
-                  <Link to="/trade-now" className="flex items-center">
+                  <Link to="/tradeNow" className="flex items-center">
                     <GiTrade className="mr-2" />
                     Trade Now
                   </Link>

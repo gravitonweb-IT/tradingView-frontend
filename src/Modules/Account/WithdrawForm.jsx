@@ -19,6 +19,7 @@ const WithdrawForm = ({ isOpen, onClose }) => {
     panNo: "",
 
     price: "",
+    Email:""
   });
 
   const [profile, setProfile] = useState([]);
@@ -74,7 +75,7 @@ const WithdrawForm = ({ isOpen, onClose }) => {
     formdata.append("panNo", formData.panNo);
 
     formdata.append("price", formData.price);
-
+    formdata.append("user_email", formData.Email);
     var requestOptions = {
       method: "POST",
 
@@ -111,6 +112,7 @@ const WithdrawForm = ({ isOpen, onClose }) => {
       panNo: "",
 
       price: "",
+      Email:""
     });
     setRegistrationSuccess(true);
   };
@@ -144,18 +146,18 @@ const WithdrawForm = ({ isOpen, onClose }) => {
 
         <div
           className={`fixed inset-0 flex items-center justify-center z-50 ${
-            isOpen ? "" : "hidden"
+            true ? "" : "hidden"
           }`}
         >
           <div className="bg-white w-2/3 lg:w-1/3 md:w-1/3  p-4 rounded shadow-lg">
             <div className="relative">
-              <button
+              {/* <button
                 onClick={onClose}
                 className="absolute top-0 right-2 text-black hover:bg-gray-100 p-2"
                 style={{ zIndex: 1 }} // To ensure it appears above other content
               >
                 X
-              </button>
+              </button> */}
 
               <form onSubmit={handleSubmit} className="p-4">
                 <div className="mb-4">
@@ -266,6 +268,24 @@ const WithdrawForm = ({ isOpen, onClose }) => {
                     name="price"
                     id="price"
                     value={formData.price}
+                    onChange={handleChange}
+                    className="border rounded w-full py-2 px-3"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label
+                    htmlFor="price"
+                    className="block text-gray-700 font-bold"
+                  >
+                    Email
+                  </label>
+
+                  <input
+                    type="text"
+                    name="Email"
+                    id="Email"
+                    value={formData.Email}
                     onChange={handleChange}
                     className="border rounded w-full py-2 px-3"
                     required

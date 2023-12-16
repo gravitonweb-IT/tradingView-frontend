@@ -2,7 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { IoPerson } from "react-icons/io5";
 import { MdLibraryBooks } from "react-icons/md";
 import { BsFillClipboard2DataFill } from "react-icons/bs";
-import { FaDollarSign } from "react-icons/fa6";
+import { FaRupeeSign } from "react-icons/fa";
+import { FaSortAmountUpAlt } from "react-icons/fa";
+import { FcNeutralTrading } from "react-icons/fc";
+import { MdPayments } from "react-icons/md";
+import { GiProfit } from "react-icons/gi";
 
 import React, { Children, useEffect, useState } from "react";
 import {
@@ -36,6 +40,52 @@ const DashboardUser = ({ Children }) => {
   const targetDiv = document.getElementById("grapch");
 
   const [selectedMenuItem, setSelectedMenuItem] = useState("Dashboard");
+  const [dataDashboard,setDataDashboard]=useState(null)
+
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalProfit, setTotalProfit] = useState(0);
+  const [totalLoss, setTotalLoss] = useState(0);
+  const [totalWithdrawal, setTotalWithdrawal] = useState(0);
+  const [totalDeposit, setTotalDeposit] = useState(0);
+
+useEffect(()=>{
+  var formdata = new FormData();
+  formdata.append("userEmail", "usertestuser@gmail.com");
+  
+  var requestOptions = {
+    method: 'POST',
+    body: formdata,
+    redirect: 'follow'
+  };
+  
+  fetch("http://127.0.0.1:8000/rolebased/totalUserOneData/", requestOptions)
+    .then(response => response.json())
+    .then(result => {
+      debugger
+      const data =result
+const amountData = JSON.parse(data.Amount);
+        const profitData = JSON.parse(data.StockForm);
+        const lossData = JSON.parse(data.StockForm);
+        const withdrawData = JSON.parse(data.widraw);
+        const depositData = JSON.parse(data.Diposit);
+
+        const sumAmounts = amountData.reduce((acc, item) => acc + parseFloat(item.fields.price), 0);
+        const sumProfits = profitData.reduce((acc, item) => acc + parseFloat(item.fields.profit), 0);
+        const sumLosses = lossData.reduce((acc, item) => acc + parseFloat(item.fields.loss), 0);
+        const sumWithdrawals = withdrawData.reduce((acc, item) => acc + parseFloat(item.fields.price), 0);
+        const sumDeposits = depositData.reduce((acc, item) => acc + parseFloat(item.fields.Amount), 0);
+
+        setTotalAmount(sumAmounts);
+        setTotalProfit(sumProfits);
+        setTotalLoss(sumLosses);
+        setTotalWithdrawal(sumWithdrawals);
+        setTotalDeposit(sumDeposits);
+      console.log(result)
+      setDataDashboard(result)
+    })
+    .catch(error => console.log('error', error));
+},[])
+
 
   const menuItems = [
     { name: "Dashboard", icon: AiOutlineDashboard },
@@ -159,46 +209,46 @@ const DashboardUser = ({ Children }) => {
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4  mx-10 md:mx-10 lg:mx-28 gap-10 m-2">
           <div className="shadow-lg p-10 flex items-center">
             <div>
-              <h2 className="text-sm">ACTIVE CUSTOMERS</h2>
-              <h1 className="font-bold">79</h1>
+              <h2 className="text-sm">Amount </h2>
+              <h1 className="font-bold">{totalAmount}</h1>
             </div>
             <span className="ml-4">
-              <IoPerson className="text-5xl text-green-500" />
+              <FaSortAmountUpAlt className="text-5xl text-green-500" />
             </span>
           </div>
           <div className="shadow-lg p-10 flex items-center">
             <div>
-              <h2 className="text-sm">BLOCKED CUSTOMERS</h2>
+              <h2 className="text-sm">Trades </h2>
               <h1 className="font-bold">0</h1>
             </div>
             <span className="ml-4">
-              <IoPerson className="text-5xl text-red-500" />
+              <FcNeutralTrading className="text-5xl text-red-500" />
             </span>
           </div>
           <div className="shadow-lg p-10 flex items-center">
             <div>
-              <h2 className="text-sm">TOTAL BLOGS</h2>
+              <h2 className="text-sm">Payouts </h2>
               <h1 className="font-bold">3</h1>
             </div>
             <span className="ml-4">
-              <MdLibraryBooks className="text-5xl text-green-500" />
+              <MdPayments className="text-5xl text-green-500" />
             </span>
           </div>
           <div className="shadow-lg p-10 flex items-center">
             <div>
-              <h2 className="text-sm">TOTAL TRADE METHOD</h2>
-              <h1 className="font-bold">79</h1>
+              <h2 className="text-sm">Profit </h2>
+              <h1 className="font-bold">{totalProfit}</h1>
             </div>
             <span className="ml-4">
-              <MdLibraryBooks className="text-5xl text-green-500" />
+              <GiProfit className="text-5xl text-green-500" />
             </span>
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4  gap-10 mx-10 md:mx-10 lg:mx-28  m-2">
           <div className="shadow-lg p-10 flex items-center">
             <div>
-              <h2 className="text-sm">TOTAL DEPOSITS</h2>
-              <h1 className="font-bold">177</h1>
+              <h2 className="text-sm">Loss </h2>
+              <h1 className="font-bold">{totalLoss}</h1>
             </div>
             <span className="ml-4">
               <BsFillClipboard2DataFill className="text-5xl text-green-500" />
@@ -206,74 +256,36 @@ const DashboardUser = ({ Children }) => {
           </div>
           <div className="shadow-lg p-10 flex items-center">
             <div>
-              <h2 className="text-sm">TOTAL DEPOSIT AMOUNT</h2>
-              <h1 className="font-bold">664087.86$</h1>
+              <h2 className="text-sm">TotalWidraw</h2>
+              <h1 className="font-bold">{totalWithdrawal}</h1>
             </div>
             <span className="ml-4">
               {" "}
-              <FaDollarSign className="text-5xl text-green-500" />
+              <FaRupeeSign className="text-5xl text-green-500" />
             </span>
           </div>
           <div className="shadow-lg p-10 flex items-center">
             <div>
-              <h2 className="text-sm"> TOTAL WITHDRAW AMOUNT</h2>
-              <h1 className="font-bold">1556.11$</h1>
+              <h2 className="text-sm"> TotalDeposit </h2>
+              <h1 className="font-bold">{totalDeposit}</h1>
             </div>
             <span className="ml-4">
               {" "}
-              <FaDollarSign className="text-5xl text-green-500" />
+              <FaRupeeSign className="text-5xl text-green-500" />
             </span>
           </div>
           <div className="shadow-lg p-10 flex items-center">
             <div>
               <h2 className="text-sm">TOTAL WITHDRAW CHARGE AMOUNT</h2>
-              <h1 className="font-bold">56.19$</h1>
+              <h1 className="font-bold">56.19₹</h1>
             </div>
             <span className="ml-4">
               {" "}
-              <FaDollarSign className="text-5xl text-green-500" />
+              <FaRupeeSign className="text-5xl text-green-500" />
             </span>
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4 mx-10 md:mx-10 lg:mx-28  m-2 gap-10">
-          <div className="shadow-lg p-10 flex items-center">
-            <div>
-              <h2 className="text-sm">TOTAL REFERRAL BONUS</h2>
-              <h1 className="font-bold">10$</h1>
-            </div>
-            <span className="ml-4">
-              {" "}
-              <FaDollarSign className="text-5xl text-green-500" />
-            </span>
-          </div>
-          <div className="shadow-lg p-10 flex items-center">
-            <div>
-              <h2 className="text-sm">TOTAL BALANCE TRANSFER</h2>
-              <h1 className="font-bold">6</h1>
-            </div>
-            <span className="ml-4">
-              <BsFillClipboard2DataFill className="text-5xl text-green-500" />
-            </span>
-          </div>
-          <div className="shadow-lg p-10 flex items-center">
-            <div>
-              <h2 className="text-sm">TOTAL BALANCE TRANSFER AMOUNT</h2>
-              <h1 className="font-bold ">3440$</h1>
-            </div>
-            <span className="ml-4">
-              <BsFillClipboard2DataFill className="text-5xl text-green-500" />
-            </span>
-          </div>
-          <div className="shadow-lg p-10 flex items-center">
-            <div>
-              <h2 className="text-sm">TOTAL TRADES</h2>
-              <h1 className="font-bold">323</h1>
-            </div>
-            <span className="ml-4">
-              <BsFillClipboard2DataFill className="text-5xl text-green-500" />
-            </span>
-          </div>
-        </div>
+        
       </UserDashboard>
     </>
   );

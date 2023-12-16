@@ -192,94 +192,178 @@ const UserEditProfit = () => {
   return (
     <>
       <UserDashboard>
-        <>
-          <div className="py-md-5 py-3 flex items-center justify-center bg-gray-200">
-            <div className="bg-gray-100 p-8 rounded shadow-md w-full md:w-1/2 lg:w-1/3">
-              <h2 className="text-2xl font-semibold mb-4">
-                User Information Form
-              </h2>
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-gray-600"
-                  >
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="mt-1 p-2 w-full border rounded-md"
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="phoneNumber"
-                    className="block text-sm font-medium text-gray-600"
-                  >
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phoneNumber"
-                    name="phoneNumber"
-                    value={formData.phoneNumber}
-                    onChange={handleChange}
-                    className="mt-1 p-2 w-full border rounded-md"
-                    pattern="[0-9]{10}"
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="aadharCard"
-                    className="block text-sm font-medium text-gray-600"
-                  >
-                    Aadhar Card
-                  </label>
-                  <input
-                    type="text"
-                    id="aadharCard"
-                    name="aadharCard"
-                    value={formData.aadharCard}
-                    onChange={handleChange}
-                    className="mt-1 p-2 w-full border rounded-md"
-                    pattern="[0-9]{12}"
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="panCard"
-                    className="block text-sm font-medium text-gray-600"
-                  >
-                    PAN Card
-                  </label>
-                  <input
-                    type="text"
-                    id="panCard"
-                    name="panCard"
-                    value={formData.panCard}
-                    onChange={handleChange}
-                    className="mt-1 p-2 w-full border rounded-md"
-                    pattern="[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}"
-                    required
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="bg-blue-500 text-gray-100 px-4 py-2 border border-transparent rounded-md hover:border-blue-600  hover:bg-gray-100 hover:text-blue-600"
-                >
-                  Submit
-                </button>
-              </form>
+      <>
+      <div className="overflow-x-hidden">
+        <div className=" grid md:grid-cols-3 mx-5 gap-5  mt-10 ">
+          <div className="bg-white p-5  shadow-xl text-center">
+            <img
+              src={
+                base64Image
+                  ? base64Image
+                  : profile[0]?.fields?.Image
+                  ? profile[0]?.fields?.Image
+                  : "https://bootdey.com/img/Content/avatar/avatar7.png"
+              }
+              alt="Admin"
+              className="rounded-circle m-auto"
+              width="150"
+            />
+
+            <div className="mt-3">
+              <h4>{profile[0]?.fields?.first_name}</h4>
+
+              <p className=" mt-2">{profile[0]?.fields?.email}</p>
+
+              <p className="mt-2  ">
+                {profile[0]?.fields?.created_date}
+              </p>
+
+              <label className="custom-file-input mt-2">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                />
+              </label>
+
+              <Link to="/fund">
+                {" "}
+                <button className=" p-2  border-2 border-blue-600  rounded-[4px] mt-2">Add Fund</button>{" "}
+              </Link>
             </div>
           </div>
-        </>
+
+          <div className="md:col-span-2   ">
+            <div className=" bg-white  p-3 py-3 shadow-2xl">
+              <div className="flex  p-4">
+                <p>FullName:</p>
+
+                <p className="ml-14">{profile[0]?.fields?.first_name}</p>
+              </div>
+
+              <hr />
+
+              <div className="flex  p-4 ">
+                <p>Email:</p>
+
+                <p className="ml-20"> {profile[0]?.fields?.email}</p>
+              </div>
+
+              <hr />
+
+              <div className="flex  p-4 ">
+                <p>Mobile</p>
+
+                <p className="ml-20"> {profile[0]?.fields?.phone_number}</p>
+              </div>
+
+              <hr />
+
+              <div className="flex  p-4 ">
+                <p>Date Joined:</p>
+
+                <p className="ml-10"> {profile[0]?.fields?.date_joined}</p>
+              </div>
+
+              <Link to="/portfolio ">
+                {" "}
+                <button className="px-5 py-2 rounded-[4px] m-4 bg-blue-600 text-white">
+                  PortFolio
+                </button>{" "}
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/*  */}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-5 gap-10 mt-10">
+          <div>
+            <div className="flex p-4 justify-between border border-blue-600 rounded-[4px]">
+              <p className="pl-3 text-xl font-medium">Balance Sheet</p>
+
+              <p> {dataValue?.price}</p>
+            </div>
+
+            <div className="flex mt-8 p-4 justify-between border border-blue-600 rounded-[4px]">
+              <p className="pl-3 text-xl font-medium">Profit</p>
+
+              <p> {dataValue?.profit}</p>
+            </div>
+
+            <div className="flex mt-8 p-4 justify-between border border-blue-600 rounded-[4px]">
+              <p className="pl-3 text-xl font-medium">Loss</p>
+
+              <p> {dataValue?.loss}</p>
+            </div>
+          </div>
+
+          <div className=" bg-white  p-5  shadow-xl">
+            <div class="card-body">
+              <h6 class="text-xl font-medium mb-3">Bank Details</h6>
+
+              <h5>AadhaarCardNumber</h5>
+
+              <div class="progress mb-3 ">
+                <div
+                  class="progress-bar bg-primary w-[80%]"
+                  role="progressbar"
+                  aria-valuenow="80"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  {profile[0]?.fields?.aadhaarCardNumber}
+                </div>
+              </div>
+
+              <h5>BankAccount</h5>
+
+              <div class="progress mb-3 ">
+                <div
+                  class="progress-bar bg-primary w-[72%]"
+                  role="progressbar"
+                  aria-valuenow="72"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  {profile[0]?.fields?.bankaccount}
+                </div>
+              </div>
+
+              <h5>PanCard</h5>
+
+              <div class="progress mb-3 ">
+                <div
+                  class="progress-bar bg-primary w-[89%]"
+                  role="progressbar"
+                  aria-valuenow="89"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  {profile[0]?.fields?.pancard}
+                </div>
+              </div>
+              <h5>IFSC</h5>
+              <div class="progress mb-3 ">
+                <div
+                  class="progress-bar bg-primary w-[89%]"
+                  role="progressbar"
+                  aria-valuenow="89"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  {profile[0]?.fields?.ifsccode}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* <div>
+            <img src={StockMarket} className="w-[80%]"></img>
+          </div> */}
+        </div>
+      </div>
+    </>
       </UserDashboard>
     </>
   );

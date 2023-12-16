@@ -1,0 +1,29 @@
+.stock-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+
+.stock-item .symbol {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.stock-item .change, .stock-item .percentage-change, .stock-item .volume {
+  font-size: 1em;
+}
+
+.positive {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.negative {
+  background-color: #f8d7da;
+  color: #721c24;
+}
